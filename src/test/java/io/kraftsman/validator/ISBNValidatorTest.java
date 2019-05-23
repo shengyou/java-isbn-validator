@@ -20,6 +20,19 @@ class ISBNValidatorTest {
     }
 
     @Test
+    void shouldFailedWhenEnterAnInvalid13DigitsISBN() throws WrongDigitException {
+        // arrange
+        ISBNValidator validator = new ISBNValidator();
+        String isbn = "9781617293291";
+
+        // act
+        boolean actual = validator.validate(isbn);
+
+        // assert
+        assertFalse(actual);
+    }
+
+    @Test
     void shouldPassIfISBNHasDashCharacter() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
