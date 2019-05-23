@@ -1,33 +1,64 @@
 package io.kraftsman.validator;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.stream.IntStream;
+
 public class ISBNValidator {
     public boolean validate(String isbn) throws WrongDigitException {
 
         isbn = removeNonNumericCharacter(isbn);
 
-        if (isbn.length() != 10 && isbn.length() != 13) throw new WrongDigitException("ISBN should have 10 or 13 digits");
+        if (isWrongDigits(isbn)) throw new WrongDigitException("ISBN should have 10 or 13 digits");
 
-        int total = 0;
         if (isbn.length() == 10) {
-            for (int i = 0; i < 10; i++) {
-                int a = (i == 9 && isbn.charAt(i) == 'X')? 10 : Character.getNumericValue(isbn.charAt(i));
-                total += a * (10 - i);
-            }
-
-            return (total % 11 == 0);
-        } else {
-            for (int i = 0; i < 13; i++) {
-                int a = Character.getNumericValue(isbn.charAt(i));
-                int b = (i % 2 == 0) ? 1 : 3;
-
-                total += a * b;
-            }
-
-            return (total % 10 == 0);
+            return validate10DigitsISBN(isbn);
+        } else if (isbn.length() == 13) {
+            return validate13DigitsISBN(isbn);
         }
+
+        return false;
     }
 
-    private String removeNonNumericCharacter(@org.jetbrains.annotations.NotNull String isbn) {
+    private boolean isWrongDigits(@NotNull String isbn) {
+        return isbn.length() != 10 && isbn.length() != 13;
+    }
+
+    private boolean validate13DigitsISBN(@NotNull String isbn) {
+
+        int x = IntStream.range(1, 14)
+                .filter(i -> i % 2 != 0)
+                .mapToObj(i -> {
+                    int a = Character.getNumericValue(isbn.charAt(i - 1));
+                    return a;
+                }).mapToInt(i -> i)
+                .sum();
+
+        int y = IntStream.range(1, 14)
+                .filter(i -> i % 2 == 0)
+                .mapToObj(i -> {
+                    int a = Character.getNumericValue(isbn.charAt(i - 1));
+                    return a * 3;
+                })
+                .mapToInt(i -> i)
+                .sum();
+
+        return ((x + y) % 10 == 0);
+    }
+
+    private boolean validate10DigitsISBN(String isbn) {
+        int total = 0;
+
+        for (int i = 0; i < 10; i++) {
+            int a = (i == 9 && isbn.charAt(i) == 'X') ? 10 : Character.getNumericValue(isbn.charAt(i));
+            total += a * (10 - i);
+        }
+
+        return (total % 11 == 0);
+    }
+
+    @NotNull
+    private String removeNonNumericCharacter(@NotNull String isbn) {
         return isbn.trim().toUpperCase().replaceAll("[^0-9X]", "");
     }
 }
