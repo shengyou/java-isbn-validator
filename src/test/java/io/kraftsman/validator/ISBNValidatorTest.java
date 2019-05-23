@@ -109,4 +109,17 @@ class ISBNValidatorTest {
         // assert
         assertTrue(actual);
     }
+
+    @Test
+    void shouldFailWhenEnterAnInvalid10DigitsISBNThatEndWithX() throws WrongDigitException {
+        // arrange
+        ISBNValidator validator = new ISBNValidator();
+        String isbn = "012000031X";
+
+        // act
+        boolean actual = validator.validate(isbn);
+
+        // assert
+        assertFalse(actual);
+    }
 }
