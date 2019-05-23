@@ -70,4 +70,17 @@ class ISBNValidatorTest {
             validator.validate(isbn);
         });
     }
+
+    @Test
+    void shouldPassWhenEnterAValidate10DigitsISBN() throws WrongDigitException {
+        // arrange
+        ISBNValidator validator = new ISBNValidator();
+        String isbn = "1617293296";
+
+        // act
+        boolean actual = validator.validate(isbn);
+
+        // assert
+        assertTrue(actual);
+    }
 }
