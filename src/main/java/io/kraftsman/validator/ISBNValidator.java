@@ -10,7 +10,7 @@ public class ISBNValidator {
         int total = 0;
         if (isbn.length() == 10) {
             for (int i = 0; i < 10; i++) {
-                int a = Character.getNumericValue(isbn.charAt(i));
+                int a = (i == 9 && isbn.charAt(i) == 'X')? 10 : Character.getNumericValue(isbn.charAt(i));
                 total += a * (10 - i);
             }
 
@@ -28,6 +28,6 @@ public class ISBNValidator {
     }
 
     private String removeNonNumericCharacter(@org.jetbrains.annotations.NotNull String isbn) {
-        return isbn.trim().replaceAll("[^0-9]", "");
+        return isbn.trim().toUpperCase().replaceAll("[^0-9X]", "");
     }
 }
