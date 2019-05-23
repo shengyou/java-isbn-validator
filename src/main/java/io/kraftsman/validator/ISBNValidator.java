@@ -28,18 +28,12 @@ public class ISBNValidator {
 
         int x = IntStream.range(1, 14)
                 .filter(i -> i % 2 != 0)
-                .mapToObj(i -> {
-                    int a = Character.getNumericValue(isbn.charAt(i - 1));
-                    return a;
-                }).mapToInt(i -> i)
+                .mapToObj(i -> Character.getNumericValue(isbn.charAt(i - 1))).mapToInt(i -> i)
                 .sum();
 
         int y = IntStream.range(1, 14)
                 .filter(i -> i % 2 == 0)
-                .mapToObj(i -> {
-                    int a = Character.getNumericValue(isbn.charAt(i - 1));
-                    return a * 3;
-                })
+                .mapToObj(i -> Character.getNumericValue(isbn.charAt(i - 1)) * 3)
                 .mapToInt(i -> i)
                 .sum();
 
