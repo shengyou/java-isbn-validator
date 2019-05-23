@@ -17,6 +17,6 @@ public class ISBNValidator {
     }
 
     private String removeNonNumericCharacter(@org.jetbrains.annotations.NotNull String isbn) {
-        return isbn.replaceAll("[^0-9]", "");
+        return isbn.trim().replaceAll("[^0-9]", "");
     }
 }

@@ -31,4 +31,17 @@ class ISBNValidatorTest {
         // assert
         assertTrue(actual);
     }
+
+    @Test
+    void shouldPassIfISBNHasSpace() {
+        // arrange
+        ISBNValidator validator = new ISBNValidator();
+        String isbn = " 978-1 6172932 90 ";
+
+        // act
+        boolean actual = validator.validate(isbn);
+
+        // assert
+        assertTrue(actual);
+    }
 }
