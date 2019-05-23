@@ -1,9 +1,11 @@
 package io.kraftsman.validator;
 
 public class ISBNValidator {
-    public boolean validate(String isbn) {
+    public boolean validate(String isbn) throws WrongDigitException {
 
         isbn = removeNonNumericCharacter(isbn);
+
+        if (isbn.length() != 13) throw new WrongDigitException("ISBN should have 13 digits");
 
         int total = 0;
         for (int i = 0; i < 13; i++) {

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ISBNValidatorTest {
 
     @Test
-    void shouldPassWhenEnterAValidate13DigitISBN() {
+    void shouldPassWhenEnterAValidate13DigitISBN() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
         String isbn = "9781617293290";
@@ -20,7 +20,7 @@ class ISBNValidatorTest {
     }
 
     @Test
-    void shouldPassIfISBNHasDashCharacter() {
+    void shouldPassIfISBNHasDashCharacter() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
         String isbn = "978-1617293290";
@@ -33,7 +33,7 @@ class ISBNValidatorTest {
     }
 
     @Test
-    void shouldPassIfISBNHasSpace() {
+    void shouldPassIfISBNHasSpace() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
         String isbn = " 978-1 6172932 90 ";
@@ -43,5 +43,18 @@ class ISBNValidatorTest {
 
         // assert
         assertTrue(actual);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenISBNIsNot13Digit() {
+        // assume
+        assertThrows(WrongDigitException.class, () -> {
+            // arrange
+            ISBNValidator validator = new ISBNValidator();
+            String isbn = "978161729329";
+
+            // act
+            validator.validate(isbn);
+        });
     }
 }
