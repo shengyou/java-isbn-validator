@@ -18,4 +18,17 @@ class ISBNValidatorTest {
         // assert
         assertTrue(actual);
     }
+
+    @Test
+    void shouldPassIfISBNHasDashCharacter() {
+        // arrange
+        ISBNValidator validator = new ISBNValidator();
+        String isbn = "978-1617293290";
+
+        // act
+        boolean actual = validator.validate(isbn);
+
+        // assert
+        assertTrue(actual);
+    }
 }
