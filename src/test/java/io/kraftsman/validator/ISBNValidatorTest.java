@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ISBNValidatorTest {
 
     @Test
-    void shouldPassWhenEnterAValidate13DigitISBN() throws WrongDigitException {
+    void shouldPassWhenEnterAValid13DigitISBN() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
         String isbn = "9781617293290";
@@ -72,7 +72,7 @@ class ISBNValidatorTest {
     }
 
     @Test
-    void shouldPassWhenEnterAValidate10DigitsISBN() throws WrongDigitException {
+    void shouldPassWhenEnterAValid10DigitsISBN() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
         String isbn = "1617293296";
@@ -85,7 +85,7 @@ class ISBNValidatorTest {
     }
 
     @Test
-    void shouldFailedWhenEnterAnInvalidate10DigitsISBN() throws WrongDigitException {
+    void shouldFailedWhenEnterAnInvalid10DigitsISBN() throws WrongDigitException {
         // arrange
         ISBNValidator validator = new ISBNValidator();
         String isbn = "1617293297";
